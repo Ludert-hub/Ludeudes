@@ -41,6 +41,7 @@ import { ShareAppModal } from './components/ShareAppModal';
 import { NewProjectComputosModal } from './components/NewProjectComputosModal';
 import { ProjectManagerModal } from './components/ProjectManagerModal';
 import { DataSyncCenterModal } from './components/DataSyncCenterModal';
+import { DownloadDatabaseJsonModal } from './components/DownloadDatabaseJsonModal';
 import { CronogramaViewer } from './components/CronogramaViewer';
 import {
   propagateMaterialChangeGlobal,
@@ -186,6 +187,7 @@ export default function App() {
   const [isNewProjectOpen, setIsNewProjectOpen] = useState<boolean>(false);
   const [isProjectManagerOpen, setIsProjectManagerOpen] = useState<boolean>(false);
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
+  const [isDownloadJsonModalOpen, setIsDownloadJsonModalOpen] = useState<boolean>(false);
 
   // Print modal state
   const [printModalData, setPrintModalData] = useState<{
@@ -641,6 +643,7 @@ export default function App() {
         onExportInsumosPorPartida={() =>
           exportInsumosPorPartidaToExcel(allItems, 'ZXV', fcasPorc, adminPorc, utilidadPorc)
         }
+        onDownloadJson={() => setIsDownloadJsonModalOpen(true)}
         onOpenShare={() => setIsShareModalOpen(true)}
         fcasPorc={fcasPorc}
         adminPorc={adminPorc}
@@ -706,6 +709,7 @@ export default function App() {
           onOpenAddPartida={() => setIsAddPartidaOpen(true)}
           onOpenShare={() => setIsShareModalOpen(true)}
           onOpenSyncCenter={() => setIsSyncModalOpen(true)}
+          onDownloadJson={() => setIsDownloadJsonModalOpen(true)}
         />
 
         {/* 4. Tab Navigation Strip */}
@@ -1107,6 +1111,19 @@ export default function App() {
         adminPorc={adminPorc}
         utilidadPorc={utilidadPorc}
         onApplyChanges={handleApplySyncedItems}
+      />
+
+      <DownloadDatabaseJsonModal
+        isOpen={isDownloadJsonModalOpen}
+        onClose={() => setIsDownloadJsonModalOpen(false)}
+        activeProject={activeProject}
+        currentItems={allItems}
+        allProjects={projects}
+        fcasPorc={fcasPorc}
+        adminPorc={adminPorc}
+        utilidadPorc={utilidadPorc}
+        ivaPorc={ivaPorc}
+        onSaveToServer={handleCommitPermanentBaseline}
       />
 
       {/* 7. Corporate Footer */}

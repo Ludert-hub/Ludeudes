@@ -20,6 +20,8 @@ import {
   Save,
   HardDrive,
   RefreshCw,
+  FileCode,
+  Download,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -31,6 +33,7 @@ interface HeaderProps {
   onExportPresupuestoPdf?: () => void;
   onExportApuPdf?: () => void;
   onExportInsumosPorPartida?: () => void;
+  onDownloadJson?: () => void;
   onOpenSyncCenter?: () => void;
   onOpenShare?: () => void;
   fcasPorc: number;
@@ -61,6 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
   onExportPresupuestoPdf,
   onExportApuPdf,
   onExportInsumosPorPartida,
+  onDownloadJson,
   onOpenSyncCenter,
   onOpenShare,
   fcasPorc,
@@ -369,6 +373,18 @@ export const Header: React.FC<HeaderProps> = ({
             <Layers className="w-3.5 h-3.5 text-purple-600" />
             <span>Insumos por Partida</span>
           </button>
+
+          {onDownloadJson && (
+            <button
+              type="button"
+              onClick={onDownloadJson}
+              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-amber-800 bg-amber-50/90 hover:bg-amber-100 border border-amber-300 rounded-lg shadow-2xs transition-all cursor-pointer"
+              title="Descargar archivo JSON con toda la base de datos modificada en pantalla"
+            >
+              <FileCode className="w-3.5 h-3.5 text-amber-700" />
+              <span>Descargar BD JSON</span>
+            </button>
+          )}
 
           {onOpenProjectManager && (
             <button

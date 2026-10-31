@@ -578,3 +578,57 @@ export function importProjectsBackupJson(
     };
   }
 }
+
+/**
+ * Builds the canonical persistent projects JSON payload matching /data/projects_persistent.json
+ * with all current live on-screen modifications.
+ */
+export function buildDatabaseJsonPayload(
+  allProjects: ProjectRecord[],
+  activeProject: ProjectRecord,
+  liveItems: PartidaItem[],
+  fcasPorc: number,
+  adminPorc: number,
+  utilidadPorc: number,
+  ivaPorc: number
+) {
+  const nowIso = new Date().toISOString();
+  const syncedProjects = allProjects.map((p) => {
+    if (p.id === activeProject.id) {
+      return {
+        ...p,
+        items: liveItems,
+        fcasPorc,
+        adminPorc,
+        utilidadPorc,
+        ivaPorc,
+        updatedAt: nowIso,
+      };
+    }
+    return p;
+  });
+
+  return {
+    projects: syncedProjects,
+    activeProjectId: activeProject.id,
+    lastSaved: nowIso,
+    system: 'PDVSA Costos & APU Petrolero - Persistencia Permanente en Disco',
+  };
+}
+
+/**
+ * Utility to download any JSON data as a formatted downloadable file
+ */
+export function downloadDatabaseJsonFile(payload: unknown, filename = 'projects_persistent.json'): void {
+  const jsonStr = JSON.stringify(payload, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+

@@ -15,6 +15,7 @@ import {
   Plus,
   Mail,
   RefreshCw,
+  FileCode,
 } from 'lucide-react';
 
 interface ExportToolbarProps {
@@ -27,6 +28,7 @@ interface ExportToolbarProps {
   onOpenAddPartida?: () => void;
   onOpenShare?: () => void;
   onOpenSyncCenter?: () => void;
+  onDownloadJson?: () => void;
 }
 
 export const ExportToolbar: React.FC<ExportToolbarProps> = ({
@@ -39,6 +41,7 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
   onOpenAddPartida,
   onOpenShare,
   onOpenSyncCenter,
+  onDownloadJson,
 }) => {
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
   const [isExportingSpecs, setIsExportingSpecs] = useState(false);
@@ -215,6 +218,19 @@ export const ExportToolbar: React.FC<ExportToolbarProps> = ({
             <Database className="w-4 h-4 text-purple-700" />
             <span>{isExportingLulowin ? 'Generando...' : 'Tablas LuloWin (.xlsx)'}</span>
           </button>
+
+          {/* Descargar Base de Datos JSON (valores por defecto) */}
+          {onDownloadJson && (
+            <button
+              type="button"
+              onClick={onDownloadJson}
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-amber-800 hover:text-white bg-amber-50 hover:bg-amber-600 border border-amber-300 hover:border-amber-600 rounded-lg transition-colors cursor-pointer shadow-2xs"
+              title="Descargar archivo JSON con toda la base de datos modificada en pantalla para fijarla como nuevos valores por defecto del sistema"
+            >
+              <FileCode className="w-4 h-4 text-amber-700 group-hover:text-white" />
+              <span>Descargar BD JSON</span>
+            </button>
+          )}
 
           {/* DEDICATED EXCLUSIVE BUTTON FOR ESPECIFICACIONES TÉCNICAS */}
           <button
