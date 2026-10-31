@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ALL_ITEMS } from './data/itemsData';
 import { PROJECT_INFO } from './data/projectInfo';
 import { PartidaItem, ApuDetail, ProjectRecord } from './types/costTypes';
@@ -1139,6 +1140,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <SpeedInsights />
     </div>
   );
 }
