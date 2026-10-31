@@ -1,0 +1,8 @@
+{
+  "name": "APLICACION FINAL FLOTA PESADA V.1.3",
+  "description": "Panel de control y presupuesto de obras con análisis de precios unitarios (APU) ajustados a la LOTTT, FCAS 500%, especificaciones técnicas sincronizadas y exportador Excel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@layer base {
+  @media print {
+    @page {
+      size: letter portrait;
+      margin: 10mm;
+    }
+
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    header, nav, footer, button, .print\:hidden, input, select {
+      display: none !important;
+    }
+
+    body {
+      background-color: white !important;
+      color: black !important;
+      font-size: 10pt !important;
+    }
+
+    .shadow-xs, .shadow-sm, .shadow-md, .shadow-lg, .shadow-2xl {
+      box-shadow: none !important;
+    }
+
+    .border {
+      border-color: #94a3b8 !important;
+    }
+
+    .printable-sheet {
+      border: 1.5pt solid #000 !important;
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
+
+    table {
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+  }
+}
